@@ -5,8 +5,8 @@ let MongoClient = require('mongodb').MongoClient;
 let bodyParser = require('body-parser');
 let app = express();
 
-const DB_USER = process.env.MONGO_USERNAME
-const DB_SENHA = process.env.MONGO_SENHA
+const DB_USER = process.env.USER_NAME
+const DB_SENHA = process.env.USER_PWD
 
 
 app.use(bodyParser.urlencoded({
@@ -24,8 +24,8 @@ let mongoUrlDockerCompose = `mongodb://${DB_USER}:${DB_SENHA}@mongodb`;
 let mongoClient = { useNewUrlParser: true, useUnifiedTopology: true };
 
 
-let database = "devopsDB";
-let collection = "devopsCol";
+let database = "devops1";
+let collection = "devops2";
 
 app.get('/fetch-data', function (req, res) {
   let resposta = {};
