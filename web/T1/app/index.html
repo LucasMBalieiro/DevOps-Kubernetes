@@ -22,7 +22,11 @@
 <script>
     (async function init() {
         const cont = document.getElementById('container');
-        const response = await fetch('http://localhost:3000/fetch-data', {
+        const configResponse = await fetch('/config');
+        const config = await configResponse.json();
+
+
+        const response = await fetch('/fetch-data', {
             method: "GET",
             headers: {
               'Accept': 'application/json',
@@ -35,10 +39,10 @@
 </script>
 <body>
     <div class='container' id='container'>
-        <h1>O melhor site apresentado na materia de DevOps</h1>
-        <span>Delano, desculpa não conseguir ter rodado o ingress  </span><h3 id="static">Eu tentei muito ;-;</h3>
+        <h1>O (não mais) melhor site apresentado na materia de DevOps...</h1>
+        <span>Porque rodar o ingress pelo Windows é tão dificil?  </span><h3 id="static">Eu tentei muito ;-;</h3>
         <hr />
-        <span>Dados factuais da api do Mongo:  </span><h3 id="dynamic"></h3>
+        <span>Como poderia solucionar este problema?  </span><h3 id="dynamic"></h3>
         <hr />
     </div>
 </body>

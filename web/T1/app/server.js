@@ -5,8 +5,11 @@ let MongoClient = require('mongodb').MongoClient;
 let bodyParser = require('body-parser');
 let app = express();
 
+const DB_URL = process.env.DB_URL;
 const DB_USER = process.env.USER_NAME
 const DB_SENHA = process.env.USER_PWD
+
+const mongoUrlWithAuth = `mongodb://${DB_USER}:${DB_SENHA}@${DB_URL}`;
 
 
 app.use(bodyParser.urlencoded({
@@ -18,31 +21,26 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, "index.html"));
   });
 
-let mongoUrlDockerCompose = `mongodb://${DB_USER}:${DB_SENHA}@mongodb`;
 
 
 let mongoClient = { useNewUrlParser: true, useUnifiedTopology: true };
 
 
-let database = "devops1";
-let collection = "devops2";
+
+
 
 app.get('/fetch-data', function (req, res) {
   let resposta = {};
-  MongoClient.connect(mongoUrlDockerCompose, mongoClient, function (erro, client) {
+  MongoClient.connect(mongoUrlWithAuth, mongoClient, function (erro, client) {
     if (erro) throw erro;
 
-    let db = client.db(database);
+    const db = client.db("devops1");
+    const collection = db.collection("devops2");
 
-    let queryComplexa = { id: 1 };
-
-    db.collection(collection).findOne(queryComplexa, function (err, result) {
+    collection.findOne({ id: 1 }, function (err, result) {
       if (err) throw err;
-      resposta = result;
+      res.send(result ? result : {});
       client.close();
-
-      
-      res.send(resposta ? resposta : {});
     });
   });
 });

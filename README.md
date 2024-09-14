@@ -4,12 +4,18 @@
 #### Aluno: Lucas Maciel Balieiro	
 #### RA: 800534
 
-## Portas hosteadas
+## Scripts
 
-Mongo-express:
+Para buildar
 
-	http://localhost:8081
+	minikube-start.sh
 
-Porta hosteada da página:
+Para fechar
 
-	http://localhost:3000
+	minikube-stop.sh
+
+Caso o ingress não funcione
+
+	minikube service webapp-service
+
+	minikube service mongo-express
